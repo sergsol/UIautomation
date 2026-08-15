@@ -1,6 +1,15 @@
 import pytest
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import sync_playwright, expect, Page
 
+""""""
+@pytest.fixture(scope="session")
+def browser_context_args(browser_context_args):
+    """Reserved name in playwright that allows to pass additional parameters
+    when creating new context"""
+    return {
+        **browser_context_args,
+        "storage_state": "storage_state.json",
+    }
 
 @pytest.fixture(scope="session")
 def login():
@@ -17,16 +26,20 @@ def login():
         br.close()
 
 
-@pytest.fixture(scope="function")
-def navigate(login,browser):
-    context = browser.new_context(storage_state="storage_state.json")
-    page = context.new_page()
+@pytest.fixture(scope="function", autouse=True)
+def navigate(login, page: Page):
+    """2 lines down are replaced by browser_context_args fixture"""
+    # context = browser.new_context(storage_state="storage_state.json")
+    # page = context.new_page()
     page.goto("https://www.saucedemo.com/inventory.html")
-    yield page
+    yield
+    page.screenshot(path="screenshot.png",full_page=True)
+    page.close()
 
 
-def test_add_to_cart(navigate):
-    item = navigate.locator('[data-test="inventory-item-description"]')
+def test_add_to_cart(page: Page):
+    item = page.locator('[data-test="inventory-item-description"]')
     button = item.filter(has_text="Sauce Labs Backpack").get_by_role('button')
     button.click()
     expect(button).to_have_text("Remove", timeout=10)
+    button.screenshot(path='button.png')

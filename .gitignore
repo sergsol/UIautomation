@@ -3,3 +3,4 @@
 .idea
 storage_state.json
 __pycache__/
+*.png
