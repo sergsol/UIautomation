@@ -1,0 +1,8 @@
+playwright show-trace log/trace.zip
+or use this to open zip https://trace.playwright.dev/
+
+--tracing=retain-on-failure will capture trace on failure
+--tracing=on will capture trace for all results
+--output=log/ can be used to save trace to particullar folder
+
+palywright codegen url will start recoding actions on page and make code
