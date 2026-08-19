@@ -6,3 +6,6 @@ or use this to open zip https://trace.playwright.dev/
 --output=log/ can be used to save trace to particullar folder
 
 palywright codegen url will start recoding actions on page and make code
+
+-n or --num processes  auto will automatically decide how many parallels to run tests
+use value auto or desider number of processes
