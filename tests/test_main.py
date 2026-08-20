@@ -19,6 +19,7 @@ from tests.pages.HomePage import HomePage
 #     route.fulfill(response=response
 #                   , body=body)
 
+
 def on_route_js(route: Route):
     response = route.fetch()
     body = response.text().replace("Swag Labs", "Serge Automation")
