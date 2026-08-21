@@ -35,8 +35,8 @@ def navigate(login, page: Page, base_url):
     """2 lines down are replaced by browser_context_args fixture"""
     # context = browser.new_context(storage_state="storage_state.json")
     # page = context.new_page()
-    page.on("request", on_request)
-    page.on("response", on_response)
+    # page.on("request", on_request)
+    # page.on("response", on_response)
     # page.route("**/*.js", on_route_js)
     page.goto("https://www.saucedemo.com/inventory.html")
     yield
